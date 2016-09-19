@@ -29,7 +29,7 @@ static Vec3b randPastelBGR();
 static void addNoise(Mat& image);
 static void addTextFitted(Mat& image, const Rect& textRect, int nChars, Scalar colour);
 static void warpText(Mat& image, const Rect& textRect);
-static void combine(const Mat& fore, const Mat& back, Mat& result, Scalar targetForeColour);
+static void combineMats(const Mat& fore, const Mat& back, Mat& result, Scalar targetForeColour);
 static void fitTextHoriz(Mat& image, std::string txt, const Rect& txtContainer, 
 			int fontFace = CV_FONT_HERSHEY_SIMPLEX, int thickness = 1, Scalar colour = { 0, 0, 0 });
 static void fitTextVert(Mat& image, std::string txt, const Rect& txtContainer, 
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
 	warpText(textImg, textRect);
 
-	combine(textImg, image, image, textColour);
+	combineMats(textImg, image, image, textColour);
 
 	imshow("Result", image);
 	waitKey(0);
@@ -152,7 +152,7 @@ void warpText(Mat& image, const Rect& textRect)
 	warpPerspective(image, image, lambda, image.size());
 }
 
-void combine(const Mat& fore, const Mat& back, Mat& result, Scalar foreTargetColour)
+void combineMats(const Mat& fore, const Mat& back, Mat& result, Scalar foreTargetColour)
 {
 	cv::Mat foreTransparent;
 	cv::inRange(fore, foreTargetColour, foreTargetColour, foreTransparent);
