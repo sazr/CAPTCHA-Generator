@@ -1,4 +1,4 @@
-# CAPTCHA
+# CAPTCHA Generator
 
 Simple application that generates CAPTCHA images of variable dimensions and character length.
 
